@@ -1,0 +1,51 @@
+// news
+new RBOBJECT[MAX_PLAYERS];
+#define COLOR_LIGHTRED 0xFF6347AA
+
+
+
+// onplayerdisconnect
+	if(GetPVarInt(playerid, "rb") == 1)
+	{
+		DestroyObject(RBOBJECT[playerid]);
+		SetPVarInt(playerid, "rb", 0);
+	}
+
+
+
+// commands
+CMD:rb(playerid, params[])
+{
+	if(sscanf(params, "d",params[0])) return SendClientMessage(playerid, COLOR_GREEN, "[INFO]{ffffff} Gamoiyenet: /rb [Type] (Type 1) (Type 2) {Type 3)");
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
+	if(GetPVarInt(playerid, "rb") == 0)
+	{
+		if(params[0] == 1)
+		{
+			RBOBJECT[playerid] = CreateObject(1424, x, y, z - 0.5, 0, 0 ,0, 30);
+			SetPVarInt(playerid, "rb", 1);
+		}
+		else if(params[0] == 2)
+		{
+			RBOBJECT[playerid] = CreateObject(1459, x, y, z - 0.5, 0, 0 ,0, 30);
+			SetPVarInt(playerid, "rb", 1);
+		}
+		else if(params[0] == 3)
+		{
+			RBOBJECT[playerid] = CreateObject(1423, x, y, z - 0.5, 0, 0 ,0, 30);
+			SetPVarInt(playerid, "rb", 1);
+		}
+		else
+		{
+			SendClientMessage(playerid, COLOR_LIGHTRED, "[Shecdoma]{ffffff} Araswori Object ID !");
+		}
+	}
+	else if(GetPVarInt(playerid, "rb") == 1)
+	{
+		SendClientMessage(playerid, COLOR_LIGHTRED, "[Info]{ffffff} Tkveni Obieqti Gakra");
+		DestroyObject(RBOBJECT[playerid]);
+		SetPVarInt(playerid, "rb", 0);
+	}
+	return true;	
+}
